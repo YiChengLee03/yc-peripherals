@@ -1,41 +1,23 @@
-import Directory from './components/directory/directory.component';
+import { Routes, Route } from 'react-router-dom';
 
-import keyboard from './categories-img/keyboard.jpg';
-import switches from './categories-img/switches.jpg';
-import keycaps from './categories-img/keycaps.jpg';
-import mice from './categories-img/mice.jpg';
-import accessories from './categories-img/acessories.jpg';
+import Navigation from './routes/navigation/navigation.component';
+import Home from './routes/home/home.component';
+import SignIn from './routes/sign-in/sign-in.components';
+
+const Shop = () => {
+  return <h1>HI</h1>;
+};
 
 const App = () => {
-  const categories = [
-    {
-      id: 1,
-      title: 'Keyboards',
-      img: keyboard,
-    },
-    {
-      id: 2,
-      title: 'Switches',
-      img: switches,
-    },
-    {
-      id: 3,
-      title: 'Keycaps',
-      img: keycaps,
-    },
-    {
-      id: 4,
-      title: 'Mice',
-      img: mice,
-    },
-    {
-      id: 5,
-      title: 'Accessories',
-      img: accessories,
-    },
-  ];
-
-  return <Directory categories={categories} />;
+  return (
+    <Routes>
+      <Route path='/' element={<Navigation />}>
+        <Route index element={<Home />} />
+        <Route path='shop' element={<Shop />} />
+        <Route path='sign-in' element={<SignIn />} />
+      </Route>
+    </Routes>
+  );
 };
 
 export default App;
