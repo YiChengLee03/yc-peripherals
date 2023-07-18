@@ -1,6 +1,5 @@
 import {
   signInWithGooglePopup,
-  createUserDocumentFromAuth,
   signInAuthUserWithEmailAndPassword,
 } from '../../utils/firebase/firebase.utils';
 import { useState } from 'react';
@@ -32,11 +31,10 @@ const SignInForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
+      const { user } = await signInAuthUserWithEmailAndPassword(
         email,
         password
       );
-      console.log(response);
       resetFormField();
     } catch (error) {
       switch (error.code) {
@@ -55,8 +53,7 @@ const SignInForm = () => {
   // Create new user / sign in to an existing account with Google
   const signInWithGoogle = async () => {
     try {
-      const { user } = await signInWithGooglePopup();
-      await createUserDocumentFromAuth(user);
+      await signInWithGooglePopup();
     } catch (error) {
       console.log(error);
     }
@@ -84,6 +81,7 @@ const SignInForm = () => {
           name='password'
           value={password}
         />
+
         <div className='buttons-container'>
           <Button type='submit'>Sign In</Button>
           <Button type='button' buttonType='google' onClick={signInWithGoogle}>
