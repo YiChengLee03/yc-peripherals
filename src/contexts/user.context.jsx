@@ -4,17 +4,19 @@ import {
   createUserDocumentFromAuth,
 } from '../utils/firebase/firebase.utils';
 
-// actual value for access
+// global value for access
 export const UserContext = createContext({
   currentUser: null,
   setCurrentUser: () => null,
 });
 
+// Children nodes in UserProvider will re-render whenever context value changes
 export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const value = { currentUser, setCurrentUser };
 
   useEffect(() => {
+    // onAuthStateChangedListener callback defined here and will be reused when called in the future
     const unsubscribe = onAuthStateChangedListener((user) => {
       if (user) {
         createUserDocumentFromAuth(user);

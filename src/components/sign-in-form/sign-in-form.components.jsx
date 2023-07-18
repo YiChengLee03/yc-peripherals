@@ -25,16 +25,14 @@ const SignInForm = () => {
   // Update changes to the state
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormFields({ ...formFields, [name]: value }); // Use spread operator to make a JSON object and change its respective value(s)
+    // Spread operator to make unpack into an object and change its respective value
+    setFormFields({ ...formFields, [name]: value });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { user } = await signInAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
+      await signInAuthUserWithEmailAndPassword(email, password);
       resetFormField();
     } catch (error) {
       switch (error.code) {

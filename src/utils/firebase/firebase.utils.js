@@ -83,6 +83,7 @@ export const signOutUser = async () => {
   await signOut(auth);
 };
 
+// callback declared in user.context.jsx
 export const onAuthStateChangedListener = (callback) => {
   onAuthStateChanged(auth, callback);
 };
