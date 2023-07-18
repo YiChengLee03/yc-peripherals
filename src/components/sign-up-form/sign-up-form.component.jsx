@@ -9,6 +9,7 @@ import Button from '../button/button.component';
 
 import './sign-up-form.styles.scss';
 
+// Form field object
 const defaultFormFields = {
   displayName: '',
   email: '',
@@ -16,20 +17,31 @@ const defaultFormFields = {
   confirmPassword: '',
 };
 
+// Sign Up From Component
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
+  // Reset Form Field to default
   const resetFormField = () => {
     setFormFields(defaultFormFields);
   };
 
+  // Update changes to the state
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormFields({ ...formFields, [name]: value }); // Use spread operator to make a JSON object and change its respective value(s)
+  };
+
+  // Handling form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (password !== confirmPassword) {
       alert('Passwords do not match');
       return;
     }
+
+    // Create a new user using email and password
     try {
       const { user } = await createAuthUserWithEmailAndPassword(
         email,
@@ -37,18 +49,11 @@ const SignUpForm = () => {
       );
       await createUserDocumentFromAuth(user, { displayName });
       resetFormField();
-      console.log('Successfully created user');
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
-        alert('Cannot create user, user is already in use');
+        alert('Cannot create user, email is already in use');
       }
-      console.log('Failed to create an account with this email' + error);
     }
-  };
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormFields({ ...formFields, [name]: value });
   };
 
   return (
