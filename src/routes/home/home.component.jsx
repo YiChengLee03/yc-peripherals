@@ -11,27 +11,27 @@ const Home = () => {
     {
       id: 1,
       title: 'Keyboards',
-      img: keyboard,
+      imageUrl: keyboard,
     },
     {
       id: 2,
       title: 'Switches',
-      img: switches,
+      imageUrl: switches,
     },
     {
       id: 3,
       title: 'Keycaps',
-      img: keycaps,
+      imageUrl: keycaps,
     },
     {
       id: 4,
       title: 'Mice',
-      img: mice,
+      imageUrl: mice,
     },
     {
       id: 5,
       title: 'Accessories',
-      img: accessories,
+      imageUrl: accessories,
     },
   ];
 
